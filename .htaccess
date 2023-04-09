@@ -1,0 +1,17 @@
+<IfModule mod_rewrite.c>
+    Options -Indexes
+    IndexIgnore *
+
+    RewriteEngine On
+    #RewriteBase /phpshort/
+    DirectoryIndex index.php
+
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME} !-f
+
+    RewriteRule ^stats/[A-Za-z0-9\-\_]+$ /phpshort/stats.php [L]
+
+    RewriteRule ^[A-Za-z0-9\-\_]+$ /phpshort/redirect.php [L]
+
+    ErrorDocument 404 /phpshort/error.php
+</IfModule>

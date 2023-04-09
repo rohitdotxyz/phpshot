@@ -1,0 +1,75 @@
+CREATE TABLE IF NOT EXISTS users (
+    user_id int(10) UNSIGNED UNIQUE NOT NULL AUTO_INCREMENT,
+    user_name varchar(50) NOT NULL DEFAULT '',
+    user_email varchar(100) NOT NULL DEFAULT '',
+    user_role int(3) UNSIGNED NOT NULL DEFAULT 100,
+    user_password varchar(50) NOT NULL,
+    user_country varchar(60) NOT NULL DEFAULT '',
+    expiresAt varchar(20) NOT NULL DEFAULT '',
+    user_dob DATE,
+    expiresAt varchar(20) NOT NULL DEFAULT '',
+    user_joined TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    user_updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    PRIMARY KEY (user_id)
+    #FOREIGN KEY (user_country) REFERENCES countries(country_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+
+CREATE TABLE IF NOT EXISTS urls (
+    url_id int(10) UNSIGNED UNIQUE NOT NULL AUTO_INCREMENT,
+    url_long varchar(600) NOT NULL DEFAULT '',
+    url_code varchar(64) NOT NULL UNIQUE,
+    url_password varchar(50) NOT NULL DEFAULT '',
+    url_createdBy int(10) UNSIGNED NOT NULL,
+    url_visits int(10) UNSIGNED DEFAULT 0,
+    url_reports int(10) UNSIGNED DEFAULT 0,
+    url_deleted int(1) UNSIGNED DEFAULT 0,
+    url_createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    url_updatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    PRIMARY KEY (url_id)
+    #FOREIGN KEY (url_createdBy) REFERENCES users(user_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+
+CREATE TABLE reports ( 
+    report_id int(10) UNSIGNED UNIQUE NOT NULL AUTO_INCREMENT,
+    report_userId int(10) UNSIGNED NOT NULL DEFAULT 0,
+    report_urlId int(10) UNSIGNED NOT NULL DEFAULT 0,
+    report_comment varchar(600) NOT NULL DEFAULT '',
+    report_createdAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (report_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+
+CREATE TABLE visits ( 
+    visit_id int(10) UNSIGNED UNIQUE NOT NULL AUTO_INCREMENT,
+    visit_urlId int(10) UNSIGNED NOT NULL,
+    visit_referer varchar(200) NOT NULL DEFAULT '',
+    br_chrome varchar(1) NOT NULL DEFAULT 0,
+    br_firefox varchar(1) NOT NULL DEFAULT 0,
+    br_safari varchar(1) NOT NULL DEFAULT 0,
+    br_edge varchar(1) NOT NULL DEFAULT 0,
+    br_ie varchar(1) NOT NULL DEFAULT 0,
+    br_opera varchar(1) NOT NULL DEFAULT 0,
+    br_others varchar(1) NOT NULL DEFAULT 0,
+    os_windows varchar(1) NOT NULL DEFAULT 0,
+    os_linux varchar(1) NOT NULL DEFAULT 0,
+    os_macos varchar(1) NOT NULL DEFAULT 0,
+    os_android varchar(1) NOT NULL DEFAULT 0,
+    os_ios varchar(1) NOT NULL DEFAULT 0,
+    os_others varchar(1) NOT NULL DEFAULT 0,
+    visit_country varchar(16) NOT NULL DEFAULT '',
+    visit_ip varchar(60) NOT NULL default '',
+    visit_agent varchar(300) NOT NULL default '',
+    visit_time TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (visit_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+
+CREATE TABLE subscriptions ( 
+    sub_id int(10) UNSIGNED UNIQUE NOT NULL AUTO_INCREMENT,
+    sub_userId int(10) UNSIGNED NOT NULL,
+    sub_At varchar(20) NOT NULL DEFAULT "",
+    sub_expAt varchar(20) NOT NULL DEFAULT "",
+    PRIMARY KEY (visit_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;

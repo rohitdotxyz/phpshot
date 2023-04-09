@@ -1,0 +1,6 @@
+{
+    "require": {
+        "whichbrowser/parser": "^2.1",
+        "stripe/stripe-php": "^10.12"
+    }
+}
